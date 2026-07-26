@@ -74,10 +74,10 @@ function getFiltered() {
     }
     if (state.priceBand !== "all") {
       const price = p.price;
-      if (state.priceBand === "under2500" && !(price < 2500)) return false;
-      if (state.priceBand === "5000to7000" && !(price >= 5000 && price <= 7000)) return false;
-      if (state.priceBand === "7000to10000" && !(price >= 7000 && price <= 10000)) return false;
-      if (state.priceBand === "10000to12000" && !(price >= 10000 && price <= 12000)) return false;
+      if (state.priceBand === "under25" && !(price < 25)) return false;
+      if (state.priceBand === "25to75" && !(price >= 25 && price <= 75)) return false;
+      if (state.priceBand === "75to200" && !(price > 75 && price <= 200)) return false;
+      if (state.priceBand === "over200" && !(price > 200)) return false;
     }
     return true;
   });
@@ -112,24 +112,31 @@ function renderGrid() {
   });
 }
 
+function mediaHtml(p) {
+  const iconFn = CATEGORY_ICONS[p.category] || carIcon;
+  if (p.image) {
+    // If the real photo 404s (e.g. assets/ is still empty), swap in the line-art
+    // icon instead of showing a broken-image glyph.
+    return `<img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), {innerHTML: \`${iconFn().replace(/`/g, "\\`")}\`}).firstElementChild)">`;
+  }
+  return iconFn();
+}
+
 function cardHtml(p) {
   const stock = stockLabel(p.stock);
   const disabled = p.stock === "out-of-stock";
-  const imageHtml = p.image 
-    ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`
-    : `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--bg-raised);">No image</div>`;
   return `
     <article class="product-card">
       <div class="card-media" data-view-sku="${p.sku}" style="cursor:pointer">
         ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ""}
-        ${imageHtml}
+        ${mediaHtml(p)}
       </div>
       <div class="card-body" data-view-sku="${p.sku}" style="cursor:pointer">
         <span class="card-cat">${p.categoryLabel.toUpperCase()}</span>
         <h3 class="card-name">${p.name}</h3>
         <span class="card-scale">Scale ${p.scale} &middot; SKU ${p.sku}</span>
         <div class="card-bottom">
-          <span class="price-sticker">₹${Math.round(p.price)}</span>
+          <span class="price-sticker">$${p.price.toFixed(2)}</span>
           <span class="stock-pill ${stock.cls}">${stock.text}</span>
         </div>
       </div>
@@ -174,7 +181,7 @@ function cartTotal() {
 function renderCart() {
   const items = Object.values(state.cart);
   document.getElementById("cart-count").textContent = cartCount();
-  document.getElementById("cart-total").textContent = `₹${Math.round(cartTotal())}`;
+  document.getElementById("cart-total").textContent = `$${cartTotal().toFixed(2)}`;
   const checkoutBtn = document.getElementById("checkout-btn");
   checkoutBtn.disabled = items.length === 0;
 
@@ -189,13 +196,12 @@ function renderCart() {
 
   container.innerHTML = items.map(line => {
     const p = line.product;
-    const iconFn = CATEGORY_ICONS[p.category] || carIcon;
     return `
       <div class="cart-line">
-        <div class="cart-line-thumb">${iconFn()}</div>
+        <div class="cart-line-thumb">${mediaHtml(p)}</div>
         <div class="cart-line-body">
           <p class="cart-line-name">${p.name}</p>
-          <span class="cart-line-meta">₹${Math.round(p.price)} each</span>
+          <span class="cart-line-meta">$${p.price.toFixed(2)} each</span>
           <div class="cart-line-row">
             <div class="qty-control">
               <button data-qty-minus="${p.sku}" aria-label="Decrease quantity">−</button>
@@ -258,16 +264,13 @@ function openModal(sku) {
   if (!p) return;
   const stock = stockLabel(p.stock);
   const disabled = p.stock === "out-of-stock";
-  const imageHtml = p.image 
-    ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`
-    : `<div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--bg-raised);">No image</div>`;
   modalContent.innerHTML = `
-    <div class="modal-media">${imageHtml}</div>
+    <div class="modal-media">${mediaHtml(p)}</div>
     <div class="modal-info">
       <span class="modal-cat">${p.categoryLabel.toUpperCase()}</span>
       <h2 class="modal-title" id="modal-title">${p.name}</h2>
       <p class="modal-scale">Scale ${p.scale}</p>
-      <p class="modal-price">₹${Math.round(p.price)} <span class="stock-pill ${stock.cls}">${stock.text}</span></p>
+      <p class="modal-price">$${p.price.toFixed(2)} <span class="stock-pill ${stock.cls}">${stock.text}</span></p>
       <p class="modal-desc">${p.description}</p>
       <ul class="modal-specs">${p.specs.map(s => `<li>${s}</li>`).join("")}</ul>
       <button class="btn btn-primary btn-block" data-modal-add="${p.sku}" ${disabled ? "disabled" : ""}>${disabled ? "Sold Out" : "Add to Cart"}</button>
