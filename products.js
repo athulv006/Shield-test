@@ -11,7 +11,7 @@ const PRODUCTS = [
     scale: "1:10",
     stock: "in-stock",
     badge: "BEST SELLER",
-    image: "https://images.unsplash.com/photo-1609034227505-5876f6aa4e90?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1609034227505-5876f6aa4e90?w=400&h=300&fit=crop"
     specs: ["4WD electric drivetrain", "35+ km/h top speed", "2.4GHz radio, 2 channel", "Waterproof electronics"],
     description: "A shelf favorite for backyard and trail runs. Brushed motor, all-terrain tires, and a tub chassis that shrugs off jumps."
   },
