@@ -1,6 +1,3 @@
-// products.js — catalog data
-// Swap placeholderSvg for a real image URL/path per product when you have photos.
-
 const PRODUCTS = [
   {
     sku: "RC-CAR-001",
@@ -11,10 +8,17 @@ const PRODUCTS = [
     scale: "1:10",
     stock: "in-stock",
     badge: "BEST SELLER",
-    image: "https://images.unsplash.com/photo-1609034227505-5876f6aa4e90?w=400&h=300&fit=crop"
-    specs: ["4WD electric drivetrain", "35+ km/h top speed", "2.4GHz radio, 2 channel", "Waterproof electronics"],
-    description: "A shelf favorite for backyard and trail runs. Brushed motor, all-terrain tires, and a tub chassis that shrugs off jumps."
+    image: "./images/rc-truggy.jpg",
+    specs: [
+      "4WD electric drivetrain",
+      "35+ km/h top speed",
+      "2.4GHz radio",
+      "Waterproof electronics"
+    ],
+    description:
+      "A shelf favorite for backyard and trail runs."
   },
+
   {
     sku: "RC-CAR-002",
     name: "Vantage GT Drift Series",
@@ -24,10 +28,17 @@ const PRODUCTS = [
     scale: "1:10",
     stock: "in-stock",
     badge: "",
-    image: "https://images.unsplash.com/photo-1586380951529-fbe980f91922?w=400&h=300&fit=crop",
-    specs: ["RWD drift-tuned suspension", "Low-grip drift tires included", "Adjustable steering angle", "LED underglow"],
-    description: "Tuned for smooth, controllable slides on smooth pavement or a drift mat. Steering geometry adjusted for max drift angle."
+    image: "./images/rc-drift.jpg",
+    specs: [
+      "RWD drift suspension",
+      "Drift tires",
+      "Adjustable steering",
+      "LED lights"
+    ],
+    description:
+      "Built for smooth controlled drifting."
   },
+
   {
     sku: "RC-CAR-003",
     name: "Micro Crawler Pocket Rig",
@@ -36,126 +47,180 @@ const PRODUCTS = [
     price: 2904,
     scale: "1:24",
     stock: "low-stock",
-    image: "https://images.unsplash.com/photo-1594787318286-3d835c1cab83?w=400&h=300&fit=crop",
     badge: "",
-    specs: ["Fits in one hand", "Proportional steering", "45 min runtime", "USB-C charging"],
-    description: "Desk-sized rock crawler for tight indoor courses. Surprisingly capable articulation for its size."
+    image: "./images/rc-crawler.jpg",
+    specs: [
+      "Mini crawler",
+      "45 min runtime",
+      "USB-C charging"
+    ],
+    description:
+      "Small but capable indoor crawler."
   },
+
   {
     sku: "RC-DRN-001",
     name: "Falcon-X FPV Racing Drone Kit",
     category: "rc-drones",
     categoryLabel: "RC Drones",
     price: 18177,
-    scale: "5-inch class",
+    scale: "5-inch",
     stock: "in-stock",
-    image: "https://images.unsplash.com/photo-1508444806570-658e7e86e6db?w=400&h=300&fit=crop",
     badge: "NEW",
-    specs: ["Analog FPV goggles included", "5-inch prop, racing frame", "GPS return-to-home", "~8 min flight time"],
-    description: "Everything needed to start FPV racing in one box: frame, goggles, controller, and two battery packs."
+    image: "./images/fpv-drone.jpg",
+    specs: [
+      "FPV goggles",
+      "GPS",
+      "8 min flight"
+    ],
+    description:
+      "Complete FPV racing starter kit."
   },
+
   {
     sku: "RC-DRN-002",
     name: "Hoverline Mini Indoor Drone",
     category: "rc-drones",
     categoryLabel: "RC Drones",
     price: 2074,
-    scale: "Palm-size",
-    image: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
+    scale: "Palm Size",
     stock: "in-stock",
     badge: "",
-    specs: ["Prop guards included", "One-touch takeoff/land", "Altitude hold", "Beginner-friendly"],
-    description: "Safe, stable, and light enough to fly indoors without redecorating the living room."
+    image: "./images/indoor-drone.jpg",
+    specs: [
+      "Altitude hold",
+      "One key takeoff",
+      "Prop guards"
+    ],
+    description:
+      "Perfect beginner indoor drone."
   },
+
   {
     sku: "RC-DRN-003",
     name: "Skyline Pro Camera Drone",
     category: "rc-drones",
     categoryLabel: "RC Drones",
     price: 28967,
-    image: "https://images.unsplash.com/photo-1473968521700-13be63b6c1cb?w=400&h=300&fit=crop",
     scale: "Foldable",
     stock: "low-stock",
     badge: "",
-    specs: ["4K stabilized camera", "25 min flight time", "Obstacle sensing", "Foldable arms, travel case"],
-    description: "A capable photography drone for travel and scenic footage, with enough smarts to stay out of trouble."
+    image: "./images/camera-drone.jpg",
+    specs: [
+      "4K Camera",
+      "25 min flight",
+      "Obstacle sensing"
+    ],
+    description:
+      "Professional aerial photography drone."
   },
+
   {
     sku: "DC-CAR-001",
     name: "'67 Coupe — Classic Diecast",
     category: "diecast-cars",
     categoryLabel: "Diecast Cars",
     price: 1078,
-    image: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?w=400&h=300&fit=crop",
     scale: "1:64",
     stock: "in-stock",
     badge: "",
-    specs: ["Die-cast metal body", "Free-rolling wheels", "Opening hood detail", "Display base included"],
-    description: "A pocket-scale classic with real weight in the hand. Part of the ongoing garage-series collection."
+    image: "./images/diecast-classic.jpg",
+    specs: [
+      "Metal body",
+      "Opening hood",
+      "Display base"
+    ],
+    description:
+      "Classic American diecast model."
   },
+
   {
     sku: "DC-CAR-002",
     name: "Rally Legend — Group B Livery",
     category: "diecast-cars",
     categoryLabel: "Diecast Cars",
-    image: "https://images.unsplash.com/photo-1609034227505-5876f6aa4e90?w=400&h=300&fit=crop",
     price: 1868,
     scale: "1:43",
     stock: "in-stock",
     badge: "COLLECTOR PICK",
-    specs: ["Numbered limited livery", "Diecast body + plastic trim", "Rally spec lights molded", "Display case included"],
-    description: "Tribute livery from the golden age of rally. Comes case-ready straight out of the pack."
+    image: "./images/diecast-rally.jpg",
+    specs: [
+      "Limited edition",
+      "Display case"
+    ],
+    description:
+      "Iconic rally legend."
   },
+
   {
     sku: "DC-CAR-003",
-    name: "Street Series Muscle Set (3-pack)",
+    name: "Street Series Muscle Set",
     category: "diecast-cars",
     categoryLabel: "Diecast Cars",
-    image: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?w=400&h=300&fit=crop",
     price: 2489,
     scale: "1:64",
     stock: "out-of-stock",
     badge: "",
-    specs: ["3 vehicles per set", "Mixed matte and gloss finishes", "Individually blister-packed", "Collector card included"],
-    description: "Three classic muscle silhouettes bundled at a set price. Great starter bundle for a new shelf."
+    image: "./images/diecast-muscle.jpg",
+    specs: [
+      "3 Pack",
+      "Collector card"
+    ],
+    description:
+      "Classic muscle car collection."
   },
+
   {
     sku: "DC-PLN-001",
     name: "Warbird Squadron — P-51 Replica",
     category: "diecast-planes",
-    image: "https://images.unsplash.com/photo-1594787318286-3d835c1cab83?w=400&h=300&fit=crop",
     categoryLabel: "Diecast Planes",
     price: 3734,
     scale: "1:72",
     stock: "in-stock",
     badge: "",
-    specs: ["Diecast metal + plastic parts", "Rotating propeller", "Retractable landing gear", "Display stand included"],
-    description: "Detailed livery and panel lining on a metal airframe, stable enough for a desk or shelf display."
+    image: "./images/p51.jpg",
+    specs: [
+      "Metal body",
+      "Display stand"
+    ],
+    description:
+      "Detailed WWII fighter replica."
   },
+
   {
     sku: "DC-PLN-002",
     name: "Jetliner Classic — Commercial Series",
     category: "diecast-planes",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b83ad38?w=400&h=300&fit=crop",
     categoryLabel: "Diecast Planes",
     price: 3154,
     scale: "1:200",
     stock: "in-stock",
     badge: "",
-    specs: ["Metal fuselage", "Printed livery detail", "Snap-in display stand", "Collector box packaging"],
-    description: "A clean commercial-airline replica sized for a bookshelf row without dominating the space."
+    image: "./images/jetliner.jpg",
+    specs: [
+      "Metal fuselage",
+      "Collector box"
+    ],
+    description:
+      "Commercial airliner display model."
   },
+
   {
     sku: "DC-PLN-003",
     name: "Vintage Biplane — Barnstormer Edition",
-    image: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=400&h=300&fit=crop",
     category: "diecast-planes",
     categoryLabel: "Diecast Planes",
     price: 2283,
     scale: "1:48",
     stock: "low-stock",
     badge: "",
-    specs: ["Fabric-texture wing molding", "Diecast engine block", "Hand-painted accents", "Wooden display base"],
-    description: "Early-aviation styling with a hand-finished paint pass on the cowling and struts."
+    image: "./images/biplane.jpg",
+    specs: [
+      "Wooden base",
+      "Hand-painted"
+    ],
+    description:
+      "Classic vintage aircraft."
   }
 ];
