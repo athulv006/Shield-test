@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shield — RC Toys and Diecast Collectibles</title>
+<meta name="description" content="RC cars, RC drones, and diecast collectibles. Browse, compare, and order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="Shield home">
+      <img src="Gemini_Generated_Image_zgfogozgfogozgfo.png" alt="Shield - RC Toys and Diecast Collectibles" class="logo-image" style="height: 50px; width: auto;">
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <button class="nav-link active" data-category="all">All Stock</button>
+      <button class="nav-link" data-category="rc-cars">RC Cars</button>
+      <button class="nav-link" data-category="rc-drones">RC Drones</button>
+      <button class="nav-link" data-category="diecast-cars">Diecast Cars</button>
+      <button class="nav-link" data-category="diecast-planes">Diecast Planes</button>
+    </nav>
+
+    <button class="cart-toggle" id="cart-toggle" aria-haspopup="dialog" aria-controls="cart-panel">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 5h2l1.5 9.5A1.5 1.5 0 008 16h7a1.5 1.5 0 001.48-1.24L18 7H5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="8.5" cy="18" r="1.1" fill="currentColor"/>
+        <circle cx="15.5" cy="18" r="1.1" fill="currentColor"/>
+      </svg>
+      <span>Cart</span>
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>NEW ARRIVALS WEEKLY</span><span>·</span><span>FREE LOCAL PICKUP</span><span>·</span><span>1/18 &amp; 1/24 SCALE IN STOCK</span><span>·</span><span>DRONE FPV KITS RESTOCKED</span><span>·</span>
+      <span>NEW ARRIVALS WEEKLY</span><span>·</span><span>FREE LOCAL PICKUP</span><span>·</span><span>1/18 &amp; 1/24 SCALE IN STOCK</span><span>·</span><span>DRONE FPV KITS RESTOCKED</span><span>·</span>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">CATALOG NO. TC-2026 — GARAGE STOCK</p>
+      <h1 class="hero-title">Built to<br>scale.<span class="hero-title-accent">Sold to run.</span></h1>
+      <p class="hero-sub">Hand-picked RC vehicles and diecast collectibles — from 1:64 pocket models to full-send FPV drones. Every unit inspected before it ships.</p>
+      <div class="hero-actions">
+        <a href="#catalog" class="btn btn-primary">Browse the shelf</a>
+        <a href="#about" class="btn btn-ghost">How ordering works</a>
+      </div>
+    </div>
+    <div class="hero-spec-card" aria-hidden="true">
+      <div class="spec-row"><span>ITEM COUNT</span><span id="hero-item-count">—</span></div>
+      <div class="spec-row"><span>SCALES CARRIED</span><span>1:64 – 1:8</span></div>
+      <div class="spec-row"><span>CATEGORIES</span><span>4</span></div>
+      <div class="spec-row spec-row-highlight"><span>STATUS</span><span>SHOP OPEN</span></div>
+    </div>
+  </section>
+
+  <section class="controls" id="catalog">
+    <div class="controls-inner">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/>
+          <line x1="10.8" y1="10.8" x2="14" y2="14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <input type="search" id="search-input" placeholder="Search by name, scale, or SKU…" aria-label="Search products">
+      </div>
+
+      <div class="filter-group">
+        <label for="sort-select" class="filter-label">Sort</label>
+        <select id="sort-select" aria-label="Sort products">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name: A–Z</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="price-select" class="filter-label">Price</label>
+        <select id="price-select" aria-label="Filter by price">
+          <option value="all">Any price</option>
+          <option value="under2500">Under ₹2,500</option>
+          <option value="5000to7000">₹5,000 – ₹7,000</option>
+          <option value="7000to10000">₹7,000 – ₹10,000</option>
+          <option value="10000to12000">₹10,000 – ₹12,000</option>
+        </select>
+      </div>
+
+      <p class="results-count" id="results-count" role="status"></p>
+    </div>
+  </section>
+
+  <section class="catalog-grid" id="product-grid" aria-live="polite">
+    <!-- product cards injected by app.js -->
+  </section>
+
+  <p class="empty-state" id="empty-state" hidden>No items match that search. Try a different keyword or clear filters.</p>
+
+  <section class="about" id="about">
+    <div class="about-inner">
+      <h2>How ordering works</h2>
+      <ol class="about-steps">
+        <li><span class="step-num">01</span><div><strong>Build your cart.</strong> Everything on this page reflects current shop stock.</div></li>
+        <li><span class="step-num">02</span><div><strong>Send the order.</strong> Checkout puts your cart into an email — no payment info is collected on this site.</div></li>
+        <li><span class="step-num">03</span><div><strong>We confirm by email.</strong> You'll get pricing, shipping, and pickup options directly from a human.</div></li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; 2026 Shield. Not affiliated with any manufacturer brands shown.</p>
+    <p class="footer-note">All images are placeholder line art for demo purposes.</p>
+  </div>
+</footer>
+
+<!-- Cart panel -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-panel" id="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+  <div class="cart-header">
+    <h2 id="cart-title">Your Cart</h2>
+    <button class="cart-close" id="cart-close" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <p class="cart-empty" id="cart-empty">Your cart is empty. Add something from the shelf.</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Subtotal</span>
+      <span id="cart-total">$0.00</span>
+    </div>
+    <button class="btn btn-primary btn-block" id="checkout-btn" disabled>Send order by email</button>
+    <p class="cart-disclaimer">No payment is collected here — this drafts an email to the shop with your cart contents.</p>
+  </div>
+</aside>
+
+<!-- Product detail modal -->
+<div class="modal-overlay" id="modal-overlay"></div>
+<div class="product-modal" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+  <button class="modal-close" id="modal-close" aria-label="Close product detail">✕</button>
+  <div class="modal-content" id="modal-content"><!-- injected --></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
