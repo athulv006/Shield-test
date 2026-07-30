@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:5001/api';
+const hostname = typeof window !== 'undefined' && window.location ? window.location.hostname : 'localhost';
+const API_BASE_URL = `http://${hostname}:5050/api`;
 
 const getAuthHeader = () => {
   const token = localStorage.getItem('badminton_auth_token');

@@ -1,6 +1,6 @@
 import http from 'http';
 
-const BASE_URL = 'http://localhost:5001/api';
+const BASE_URL = 'http://localhost:5050/api';
 
 async function request(path, options = {}) {
   return new Promise((resolve, reject) => {

@@ -11,7 +11,7 @@ import { getDbStatus } from './config/db.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5050;
 
 app.use(cors());
 app.use(express.json());
@@ -33,13 +33,13 @@ app.get('/api/health', (req, res) => {
 // Run seeding and start server
 runSeed()
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Badminton Court Booking API running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error('Failed to initialize database:', err);
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server starting on port ${PORT} despite seed warning`);
     });
   });
