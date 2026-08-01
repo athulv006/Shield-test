@@ -97,39 +97,68 @@ export default function SlotPicker({ court, selectedDate, setSelectedDate, selec
   };
 
   // Update selected custom time range
-  const handleTimeRangeChange = (newStart, newEnd) => {
+  const handleStartTimeChange = (newStart) => {
     setStartTimeVal(newStart);
-    setEndTimeVal(newEnd);
     setCustomError('');
 
-    if (newStart >= newEnd) {
+    // If current end time is not strictly later than new start time, auto-adjust end time to newStart + 30 mins (or 1 hour)
+    const [sH, sM] = newStart.split(':').map(Number);
+    let targetMin = sH * 60 + sM + 60; // default +1 hour
+    if (targetMin > 22 * 60) targetMin = 22 * 60;
+
+    const endH = String(Math.floor(targetMin / 60)).padStart(2, '0');
+    const endM = String(targetMin % 60).padStart(2, '0');
+    const autoEnd = `${endH}:${endM}:00`;
+
+    let finalEnd = endTimeVal;
+    if (endTimeVal <= newStart) {
+      finalEnd = autoEnd;
+      setEndTimeVal(autoEnd);
+    }
+
+    validateAndSetSlot(newStart, finalEnd);
+  };
+
+  const handleEndTimeChange = (newEnd) => {
+    setEndTimeVal(newEnd);
+    setCustomError('');
+    validateAndSetSlot(startTimeVal, newEnd);
+  };
+
+  const validateAndSetSlot = (start, end) => {
+    if (start >= end) {
       setCustomError('End time must be later than start time.');
       setSelectedSlot(null);
       return;
     }
 
-    const hasOverlap = checkRangeOverlap(newStart, newEnd);
+    const hasOverlap = checkRangeOverlap(start, end);
     if (hasOverlap) {
       setCustomError('Selected time range overlaps with an existing booking.');
       setSelectedSlot(null);
       return;
     }
 
-    // Compute duration label
-    const [sH, sM] = newStart.split(':').map(Number);
-    const [eH, eM] = newEnd.split(':').map(Number);
+    const [sH, sM] = start.split(':').map(Number);
+    const [eH, eM] = end.split(':').map(Number);
     const totalMinutes = eH * 60 + eM - (sH * 60 + sM);
     const hrs = Math.floor(totalMinutes / 60);
     const mins = totalMinutes % 60;
     const durStr = `${hrs > 0 ? `${hrs}h ` : ''}${mins > 0 ? `${mins}m` : ''}`.trim();
 
-    const label = `${formatTimeLabel(newStart)} - ${formatTimeLabel(newEnd)} (${durStr})`;
-    setSelectedSlot({ start: newStart, end: newEnd, label });
+    const label = `${formatTimeLabel(start)} - ${formatTimeLabel(end)} (${durStr})`;
+    setSelectedSlot({ start, end, label });
+  };
+
+  const handleTimeRangeChange = (newStart, newEnd) => {
+    setStartTimeVal(newStart);
+    setEndTimeVal(newEnd);
+    validateAndSetSlot(newStart, newEnd);
   };
 
   // Trigger default valid slot selection when court/date changes
   useEffect(() => {
-    handleTimeRangeChange(startTimeVal, endTimeVal);
+    validateAndSetSlot(startTimeVal, endTimeVal);
   }, [bookedSlots]);
 
   return (
@@ -262,10 +291,11 @@ export default function SlotPicker({ court, selectedDate, setSelectedDate, selec
               </label>
               <select
                 value={startTimeVal}
-                onChange={(e) => handleTimeRangeChange(e.target.value, endTimeVal)}
+                onChange={(e) => handleStartTimeChange(e.target.value)}
                 style={{ width: '100%', background: 'rgba(30, 41, 59, 0.8)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#ffffff', padding: '10px', borderRadius: '10px', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
               >
-                {TIME_OPTIONS.map((t) => (
+                {/* Exclude 22:00 (10 PM) from start times since court closes at 10 PM */}
+                {TIME_OPTIONS.filter((t) => t.value < '22:00:00').map((t) => (
                   <option key={t.value} value={t.value} style={{ background: '#0f172a', color: '#fff' }}>
                     {t.label}
                   </option>
@@ -279,14 +309,17 @@ export default function SlotPicker({ court, selectedDate, setSelectedDate, selec
               </label>
               <select
                 value={endTimeVal}
-                onChange={(e) => handleTimeRangeChange(startTimeVal, e.target.value)}
+                onChange={(e) => handleEndTimeChange(e.target.value)}
                 style={{ width: '100%', background: 'rgba(30, 41, 59, 0.8)', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#ffffff', padding: '10px', borderRadius: '10px', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
               >
-                {[...TIME_OPTIONS, { value: '22:00:00', label: '10:00 PM' }].map((t) => (
-                  <option key={t.value} value={t.value} style={{ background: '#0f172a', color: '#fff' }}>
-                    {t.label}
-                  </option>
-                ))}
+                {/* Only show end times strictly later than start time */}
+                {[...TIME_OPTIONS, { value: '22:00:00', label: '10:00 PM' }]
+                  .filter((t) => t.value > startTimeVal)
+                  .map((t) => (
+                    <option key={t.value} value={t.value} style={{ background: '#0f172a', color: '#fff' }}>
+                      {t.label}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
